@@ -1,5 +1,34 @@
-extends layout
+extend index-layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    body
+      nav.navbar.navbar-inverse
+        .container-fluid
+          .navbar-header
+            .container-fluid
+          ul.nav.navbar-nav.navbar-right
+              li
+                a(href='register')
+                  span.glyphicon.glyphicon-user
+                  |  Sign Up
+              li
+                a(href='login')
+                  span.glyphicon.glyphicon-log-in
+                  |  Login
+              li
+                a(href='checkout')
+                  span.glyphicon.glyphicon-shopping-cart
+                  |  Checkout
+      form(action='')
+        input(type='text' placeholder='Search for items...' name='search')
+        button(type='submit') Search
+    #item
+      .pagination
+        a(href='#') «
+        a(href='#') 1
+        a.active(href='#') 2
+        a(href='#') 3
+        a(href='#') 4
+        a(href='#') 5
+        a(href='#') 6
+        a(href='#') »
