@@ -1,0 +1,42 @@
+extend register-layout
+
+block content
+  body
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          .container-fluid
+            a.navbar-brand(href='/')
+              img.d-inline-block.align-bottom
+        ul.nav.navbar-nav.navbar-right
+          li
+            a(href='/login')
+              span.glyphicon.glyphicon-log-in
+              |  Login
+    main
+      .cotainer.justify-content-center.col-md-8.card.col-md-offset-2
+              .card-header.h2 Register
+              form#form_id.card-body(method='post' name='register')
+                  .form-group.row
+                    label.col-md-4.col-form-label.text-md-right User Name :
+                    .col-md-6
+                      input#username.form-control(type='text' name='username' required)
+                  .form-group.row
+                    label.col-md-4.col-form-label.text-md-right Password :
+                    .col-md-6
+                      input#password.form-control(type='password' name='password' required)
+                  .form-group.row
+                    label.col-md-4.col-form-label.text-md-right Password again:
+                    .col-md-6
+                      input#password2.form-control(type='password' name='password2' required)
+                  .form-group.row
+                    label.col-md-4.col-form-label.text-md-right E-mail :
+                    .col-md-6
+                      input#email.form-control(type='e-mail' name='email' required)
+                  .form-group.row
+                    label.col-md-4.col-form-label.text-md-right Your Kingdom's name :
+                    .col-md-6
+                      input#kingdom.form-control(type='text' name='kingdom' required)
+                  #error-messages(style='color:red')
+                  .form-group.row
+                  input#submit.btn.pull-right(type='button' value='Register' onclick='validate()')
