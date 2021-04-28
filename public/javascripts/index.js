@@ -7,33 +7,32 @@ async function fetchItems() {
 }
 
 function renderItems(array) {
-  console.log(array);
   for (let i = 0; i < array.length; i++) {
     const element = array[i];
 
-    console.log(element.title);
-
     let spanTitle = document.createElement("span");
-    let spanCategory = document.createElement("span");
-    let spanPrice = document.createElement("span");
-    let spanDescription = document.createElement("span");
+    spanTitle.classList.add("title");
 
-    
+    let spanPrice = document.createElement("span");
+    spanPrice.classList.add("price");
+
+    let frame = document.createElement("div");
+    frame.classList.add("frame");
+
     let spanImage = document.createElement("img");
 
     spanTitle.appendChild(document.createTextNode(element.title));
-    spanCategory.appendChild(document.createTextNode(element.category));
-    spanPrice.appendChild(document.createTextNode(element.price));
-    spanDescription.appendChild(document.createTextNode(element.description));
+
+    frame.appendChild(spanTitle);
     spanImage.src = element.image;
+    frame.appendChild(spanImage);
+    
+    spanPrice.appendChild(document.createTextNode(element.price + " Dindong"));
+    frame.appendChild(spanPrice);
 
     let liElement = document.createElement("LI");
 
-    liElement.appendChild(spanTitle);
-    liElement.appendChild(spanCategory);
-    liElement.appendChild(spanPrice);
-    liElement.appendChild(spanDescription);
-    liElement.appendChild(spanImage);
+    liElement.appendChild(frame);
 
     let list = document.getElementById("item-list");
     list.appendChild(liElement);
