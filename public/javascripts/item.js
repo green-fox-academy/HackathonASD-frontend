@@ -10,9 +10,6 @@ async function loadItems() {
 function createNewDiv(item) {
     var mainDiv = document.getElementById("item");
 
-
-    item.id;
-
     var header = document.createElement("H1")
     var headerText = document.createTextNode(item.name);
     header.appendChild(headerText);
@@ -35,8 +32,7 @@ function createNewDiv(item) {
         if (localStorage.getItem('hackathon-cart')) {
             cart = JSON.parse(localStorage.getItem('hackathon-cart'));
         }
-
-        cart.push({ 'productId': item.id, 'quantity': quantitySelector.value });
+        cart.push({ 'productId': item.id, 'quantity': Number(quantitySelector.value) });
         localStorage.setItem('hackathon-cart', JSON.stringify(cart));
     };
     mainDiv.appendChild(addToCartButton);

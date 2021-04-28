@@ -38,16 +38,14 @@ function validate() {
     }
 
     async function registerAndFetch() {
-        const BACKEND_URL = await fetch('/api').then(res => {
-            return res.text();
-        })
+        const BACKEND_URL = 'http://localhost:8080'
 
         register(BACKEND_URL + '/login', requestData)
             .then(data => {
                 if (typeof data !== "undefined") {
-                    window.localStorage.setItem('X-tribes-token', data.jwt);
-                    window.location.replace("/kingdom");
-                    //  console.log(window.localStorage.getItem('X-tribes-token'))
+                    window.localStorage.setItem('X-meme-token', data.token);
+                    window.location.replace("/cart");
+                    //  console.log(window.localStorage.getItem('X-meme-token'))
                 }
             }).catch(err => {
                 console.log(err);
