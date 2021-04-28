@@ -1,24 +1,66 @@
-async function loadItems() {
+async function loadItem(itemId) {
 
     const response = await fetch('http://localhost:8080/item/' + itemId);
-    const items = await response.json();
-    return items;
+    const item = await response.json();
+    return item;
 }
 
-function createNewDiv() {
-    let items = JSON.parse(localStorage.getItem('hackathon-cart'));
-    var mainDiv = document.getElementById("cart");
-    items.forEach(element => {
-       console.log(element.quantity);
-    });
-    var item;
+async function checkoutPressed(itemId) { //post order with token header
 
-    items.array.forEach(element => {
-        console.log(element);
-    });
+    const response = await fetch('http://localhost:8080/item/' + itemId);
+    const item = await response.json();
+    return item;
+}
+
+var sumPrice = 0;
+
+function createCartPage() {
+    let items = JSON.parse(localStorage.getItem('hackathon-cart'));
+    var mainDiv = document.getElementById('cart');
 
     var header = document.createElement("H1")
+    var headerText = document.createTextNode("Cart");
+    header.appendChild(headerText);
+    mainDiv.appendChild(header);
+
+    if (localStorage.getItem('hackathon-cart') !== null) {
+        items.forEach(itemInCart => {
+            loadItem(itemInCart.productId).then(item => {
+                sumPrice += loadItemDom(item, mainDiv, itemInCart, sumPrice);
+            });
+        });
+
+        setTimeout(function () { checkout(mainDiv); }, 1000); //fix it sometimes. should wait for async foreach...   
+    } else {
+        var header = document.createElement("H1")
+        var headerText = document.createTextNode("Your cart is empty, we redirect you");
+        header.style.color = "red";
+
+        header.appendChild(headerText);
+        mainDiv.appendChild(header); 
+        setTimeout(function () { window.location.replace("/"); }, 3000);
+    }
+}
+
+function loadItemDom(item, mainDiv, itemInCart, sum) {
+
+    var header = document.createElement("H2")
     var headerText = document.createTextNode(item.name);
+    header.appendChild(headerText);
+    mainDiv.appendChild(header);
+
+    var header = document.createElement("H3")
+    var headerText = document.createTextNode('Quantity in cart: ' + itemInCart.quantity + ' pcs');
+    header.appendChild(headerText);
+    mainDiv.appendChild(header);
+
+    var header = document.createElement("H3")
+    var headerText = document.createTextNode('Price per piece: ' + item.cost + '$');
+    header.appendChild(headerText);
+    mainDiv.appendChild(header);
+
+    var header = document.createElement("H3")
+    var headerText = document.createTextNode('Sum: ' + itemInCart.quantity * item.cost + '$');
     header.appendChild(headerText);
     mainDiv.appendChild(header);
 
@@ -26,31 +68,35 @@ function createNewDiv() {
     image.src = item.linkToImage;
     mainDiv.appendChild(image);
 
-    var quantitySelector = document.createElement("INPUT");
-    quantitySelector.setAttribute("type", "number");
-    quantitySelector.defaultValue = 1;
-    mainDiv.appendChild(quantitySelector);
-
-
-    var addToCartButton = document.createElement("BUTTON");
-    addToCartButton.innerHTML = 'Add to cart';
-    addToCartButton.onclick = function () {
-        let cart = [];
-        if (localStorage.getItem('hackathon-cart')) {
-            cart = JSON.parse(localStorage.getItem('hackathon-cart'));
-        }
-        cart.push({ 'productId': item.id, 'quantity': quantitySelector.value });
-        localStorage.setItem('hackathon-cart', JSON.stringify(cart));
+    var deleteItem = document.createElement("BUTTON");
+    deleteItem.innerHTML = 'Delete from cart';
+    deleteItem.onclick = function () {
+        let storageProducts = JSON.parse(localStorage.getItem('hackathon-cart'));
+        let products = storageProducts.filter(product => product.productId !== itemInCart.productId);
+        localStorage.setItem('hackathon-cart', JSON.stringify(products));
+        location.reload();
     };
-    mainDiv.appendChild(addToCartButton);
+    mainDiv.appendChild(deleteItem);
 
-    var descElement = document.createElement("H3")
-    var desc = document.createTextNode(item.description);
-    descElement.appendChild(desc);
-    mainDiv.appendChild(descElement);
-
+    return sum += itemInCart.quantity * item.cost;
 }
 
-createNewDiv();
+function checkout(mainDiv) {
 
-loadItems().then(items => createNewDiv(items));
+    var sumText = document.createElement("H1")
+    var headerText = document.createTextNode('To pay: ' + sumPrice + '$');
+    sumText.appendChild(headerText);
+    mainDiv.appendChild(sumText);
+
+    var checkoutButton = document.createElement("BUTTON");
+    checkoutButton.innerHTML = 'Checkout';
+    checkoutButton.onclick = function () {
+        checkoutPressed().then(() => {
+            localStorage.deleteItem('hackathon-cart');
+        });
+        location.reload();
+    };
+    mainDiv.appendChild(checkoutButton);
+}
+
+window.onload = createCartPage; //miután betölt, különben a #cart == null
