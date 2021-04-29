@@ -51,6 +51,13 @@ function renderItems(array) {
     spanCost.appendChild(document.createTextNode(element.cost + " Dindong"));
     frame.appendChild(spanCost);
 
+    frame.addEventListener("click", function () {
+
+      window.location.replace("/item/" + element.id );
+
+     // fetchItems(Number(page.id) - 1).then((data) => renderItems(data));
+    });
+
     let liElement = document.createElement("LI");
 
     liElement.appendChild(frame);
