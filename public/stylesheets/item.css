@@ -1,0 +1,59 @@
+body {
+  background-color: #171316;
+  background-image: url("https://www.transparenttextures.com/patterns/hexellence.png");
+  color: #ff4136;
+}
+
+img {
+  width: 400px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #171316;
+  font-size: 30px;
+  margin-left: 10px;
+  border-radius: 20%;
+}
+
+#div {
+  position: relative;
+  padding: 20px 0;
+}
+
+#div input {
+  width: 40px;
+  font-size: 30px;
+  background-color: black;
+  opacity: 0.5;
+}
+
+button:hover {
+  background-color: #ff4136;
+  color: black;
+}
+
+#item {
+  margin: auto;
+  width: 50%;
+}
+
+#item div {
+  width: 400px;
+}
+
+#cost {
+  background-color: rgba(15, 17, 15, 0.8);
+  position: relative;
+  bottom: 60px;
+  left: 10px;
+  font-size: 30px;
+}
+
+p{
+  display: inline;
+  font-size: 30px;
+}
