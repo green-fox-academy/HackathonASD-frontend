@@ -5,6 +5,10 @@ body{
   color: #FF4136;
 }
 
+navbar{
+  width : 100%;
+}
+
 #item-list{
   margin: auto;
   width: 50%;

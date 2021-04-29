@@ -15,9 +15,24 @@ function createNewDiv(item) {
     header.appendChild(headerText);
     mainDiv.appendChild(header);
 
+    var frameDiv = document.createElement("DIV");
+
+    var p = document.createElement("P");
+    p.appendChild(document.createTextNode("Quantity: "));
+
+
+    var cost = document.createElement("span");
+    cost.setAttribute("id", "cost");
+
+    cost.appendChild(document.createTextNode(item.cost + " Dindong"));
+
+
     var image = document.createElement("IMG");
     image.src = item.linkToImage;
-    mainDiv.appendChild(image);
+    frameDiv.appendChild(image);
+    frameDiv.appendChild(cost);
+    
+    mainDiv.appendChild(frameDiv);
 
     var quantitySelector = document.createElement("INPUT");
     quantitySelector.setAttribute("type", "number");
@@ -26,6 +41,14 @@ function createNewDiv(item) {
 
 
     var addToCartButton = document.createElement("BUTTON");
+
+    var div = document.createElement("DIv");
+
+    div.appendChild(p);
+
+    div.appendChild(quantitySelector);
+    
+
     addToCartButton.innerHTML = 'Add to cart';
     addToCartButton.onclick = function () {
         let cart = [];
@@ -35,7 +58,11 @@ function createNewDiv(item) {
         cart.push({ 'productId': item.id, 'quantity': Number(quantitySelector.value) });
         localStorage.setItem('hackathon-cart', JSON.stringify(cart));
     };
-    mainDiv.appendChild(addToCartButton);
+
+    div.appendChild(addToCartButton);
+    div.setAttribute("id", "div");
+   
+    mainDiv.appendChild(div);
 
     var descElement = document.createElement("H3")
     var desc = document.createTextNode(item.description);
