@@ -9,7 +9,9 @@ block content
             
           ul.nav.navbar-nav.navbar-right
               li
-                a.navbar-brand(href='/') Home
+                a(href='/')
+                  span.glyphicon.glyphicon-home
+                  |  Home
               li
                 a(href='register')
                   span.glyphicon.glyphicon-user
@@ -22,7 +24,15 @@ block content
                 a(href='cart')
                   span.glyphicon.glyphicon-shopping-cart
                   |  Checkout
-      h1 Welcome
+              li
+                a(href='wishlist')
+                  span.glyphicon.glyphicon-heart
+                  |  Wishlist
+              li
+                a(href='order')
+                  span.glyphicon.glyphicon-calendar
+                  |  Orders
+      h1 Atom Super Division
       #searchbar
       #container
         ul#item-list

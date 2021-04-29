@@ -8,7 +8,9 @@ block content
             .container-fluid
           ul.nav.navbar-nav.navbar-right
               li
-                a.navbar-brand(href='/') Home
+                a(href='/')
+                  span.glyphicon.glyphicon-home
+                  |  Home
               li
                 a(href='register')
                   span.glyphicon.glyphicon-user
@@ -17,8 +19,4 @@ block content
                 a(href='login')
                   span.glyphicon.glyphicon-log-in
                   |  Login
-              li
-                a(href='http://localhost:3000/cart')
-                  span.glyphicon.glyphicon-shopping-cart
-                  |  Checkout
       #cart
