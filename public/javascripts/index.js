@@ -28,6 +28,14 @@ async function fetchItems(
 function renderItems(array) {
   removeChild();
 
+  var discountButton = document.createElement("BUTTON");
+  discountButton.innerText = "Discounts only";
+  discountButton.id = "discount";
+  discountButton.onclick = function () {
+    fetchDiscounted().then((data) => renderItems(data));
+  };
+  document.getElementById("searchbar").appendChild(discountButton);
+
   var searchBar = document.createElement("INPUT");
   searchBar.setAttribute("type", "text");
   searchBar.id = "searchText";
@@ -64,6 +72,13 @@ function renderItems(array) {
     spanTitle.appendChild(document.createTextNode(element.name));
 
     frame.appendChild(spanTitle);
+    if(element.discountRate > 0){
+        let discountDiv = document.createElement("DIV");
+        discountDiv.appendChild(document.createTextNode("Discount: " + 
+        element.discountRate + "% Original price: " + element.cost + " Dingdong"));
+        element.cost = element.cost * (100 - element.discountRate) / 100;
+        frame.appendChild(discountDiv);
+    }
     spanImage.src = element.linkToImage;
     frame.appendChild(spanImage);
 
@@ -117,6 +132,14 @@ function renderItems(array) {
       paginationNode.removeChild(paginationNode.lastElementChild);
     }
   }
+}
+
+async function fetchDiscounted() {
+  const response = await fetch(
+    "http://localhost:8080/item?filter=discounted"
+  );
+  const res = await response.json();
+  return res;
 }
 
 fetchItems().then((data) => renderItems(data));

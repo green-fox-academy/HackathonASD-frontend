@@ -112,10 +112,14 @@ function loadItemDom(item, mainDiv, itemInCart, sum) {
 }
 
 function checkout(mainDiv, items) {
-  var sumText = document.createElement("H1");
+  var checkoutDiv = document.createElement("DIV");
+  checkoutDiv.class = "card";
+
+  var sumText = document.createElement("H2");
+  sumText.id = "sum";
   var headerText = document.createTextNode("To pay: " + sumPrice + "$");
   sumText.appendChild(headerText);
-  mainDiv.appendChild(sumText);
+  checkoutDiv.appendChild(sumText);
 
   var checkoutButton = document.createElement("BUTTON");
   checkoutButton.setAttribute('id', 'checkout');
@@ -127,7 +131,8 @@ function checkout(mainDiv, items) {
     });
     location.reload();
   };
-  mainDiv.appendChild(checkoutButton);
+  sumText.appendChild(checkoutButton);
+  mainDiv.appendChild(checkoutDiv);
 }
 
 window.onload = createCartPage; //miután betölt, különben a #cart == null

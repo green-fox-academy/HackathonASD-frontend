@@ -5,8 +5,17 @@ body{
   color: #FF4136;
 }
 
+h1 {
+  text-align: center;
+  font-size: 60px;
+}
+
 navbar{
   width : 100%;
+}
+
+#searchbar {
+  margin: 10px;
 }
 
 #item-list{
@@ -18,12 +27,19 @@ navbar{
 
 #searchText{
   margin: auto;
-  width: 50%;
+  width: 30%;
   display: flex;
   flex-direction: column;
 }
+#discount {
+  margin: auto;
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
 
-#searchButton{
+#searchButton {
   margin: auto;
   width: 70px;
   display: flex;
@@ -31,7 +47,15 @@ navbar{
 }
 
 button{
-  color:black;
+  margin: 20px;
+  background-color:black;
+}
+
+#submit {
+  background-color: black;
+  position: relative;
+  font-size: 20px;
+  border-radius: 20%;
 }
 
 .frame{
