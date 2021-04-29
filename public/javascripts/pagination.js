@@ -1,4 +1,4 @@
-async function loadTotalPages() {
+/*async function loadTotalPages() {
   const BACKEND_URL = await fetch("/api").then((res) => {
     return res.text();
   });
@@ -10,5 +10,9 @@ async function loadTotalPages() {
 }
 
 
+fetch('https://localhost:8080/item')
+            .then(res=>res.json())
+            .then(json=>console.log(json))
 
+*/
 
