@@ -55,38 +55,39 @@ function createCartPage() {
 }
 
 function loadItemDom(item, mainDiv, itemInCart, sum) {
+  var card = document.createElement("DIV");
+  card.classList.add("card");
+
   var header = document.createElement("H2");
   var headerText = document.createTextNode(item.name);
   header.appendChild(headerText);
-  mainDiv.appendChild(header);
+  card.appendChild(header);
 
   var header = document.createElement("H3");
   var headerText = document.createTextNode(
     "Quantity in cart: " + itemInCart.quantity + " pcs"
   );
   header.appendChild(headerText);
-  mainDiv.appendChild(header);
+  card.appendChild(header);
 
   var header = document.createElement("H3");
   var headerText = document.createTextNode(
     "Price per piece: " + item.cost + "$"
   );
   header.appendChild(headerText);
-  mainDiv.appendChild(header);
+  card.appendChild(header);
 
   var header = document.createElement("H3");
   var headerText = document.createTextNode(
     "Sum: " + itemInCart.quantity * item.cost + "$"
   );
   header.appendChild(headerText);
-  mainDiv.appendChild(header);
-
-  var image = document.createElement("IMG");
-  image.src = item.linkToImage;
-  mainDiv.appendChild(image);
+  card.appendChild(header);
 
   var deleteItem = document.createElement("BUTTON");
   deleteItem.innerHTML = "Delete from cart";
+  
+
   deleteItem.onclick = function () {
     let storageProducts = JSON.parse(localStorage.getItem("hackathon-cart"));
     let products = storageProducts.filter(
@@ -95,8 +96,18 @@ function loadItemDom(item, mainDiv, itemInCart, sum) {
     localStorage.setItem("hackathon-cart", JSON.stringify(products));
     location.reload();
   };
-  mainDiv.appendChild(deleteItem);
 
+
+  card.appendChild(deleteItem);
+
+  var image = document.createElement("IMG");
+  image.src = item.linkToImage;
+  card.appendChild(image);
+
+  card.appendChild(deleteItem);
+
+
+  mainDiv.appendChild(card);
   return (sum += itemInCart.quantity * item.cost);
 }
 
@@ -107,6 +118,7 @@ function checkout(mainDiv, items) {
   mainDiv.appendChild(sumText);
 
   var checkoutButton = document.createElement("BUTTON");
+  checkoutButton.setAttribute('id', 'checkout');
   checkoutButton.innerHTML = "Checkout";
   checkoutButton.onclick = function () {
     checkoutPressed(items).then(() => {
