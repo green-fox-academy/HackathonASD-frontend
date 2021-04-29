@@ -5,9 +5,16 @@ async function loadItem(itemId) {
     return item;
 }
 
-async function checkoutPressed(itemId) { //post order with token header
+async function checkoutPressed(items) { //post order with token header
 
-    const response = await fetch('http://localhost:8080/item/' + itemId);
+    const response = await fetch('http://localhost:8080/order', {
+        method: 'POST',
+        headers: {
+            'X-meme-token': window.getItem('X-meme-token'),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(items) // body data type must match "Content-Type" header
+    });
     const item = await response.json();
     return item;
 }
@@ -29,15 +36,14 @@ function createCartPage() {
                 sumPrice += loadItemDom(item, mainDiv, itemInCart, sumPrice);
             });
         });
-
-        setTimeout(function () { checkout(mainDiv); }, 1000); //fix it sometimes. should wait for async foreach...   
+        setTimeout(function () { checkout(mainDiv, items); }, 1000); //fix it sometimes. should wait for async foreach...   
     } else {
         var header = document.createElement("H1")
         var headerText = document.createTextNode("Your cart is empty, we redirect you");
         header.style.color = "red";
 
         header.appendChild(headerText);
-        mainDiv.appendChild(header); 
+        mainDiv.appendChild(header);
         setTimeout(function () { window.location.replace("/"); }, 3000);
     }
 }
@@ -81,7 +87,7 @@ function loadItemDom(item, mainDiv, itemInCart, sum) {
     return sum += itemInCart.quantity * item.cost;
 }
 
-function checkout(mainDiv) {
+function checkout(mainDiv, items) {
 
     var sumText = document.createElement("H1")
     var headerText = document.createTextNode('To pay: ' + sumPrice + '$');
@@ -91,7 +97,7 @@ function checkout(mainDiv) {
     var checkoutButton = document.createElement("BUTTON");
     checkoutButton.innerHTML = 'Checkout';
     checkoutButton.onclick = function () {
-        checkoutPressed().then(() => {
+        checkoutPressed(items).then(() => {  //check if 200 .ok !!!
             localStorage.deleteItem('hackathon-cart');
         });
         location.reload();
