@@ -11,13 +11,13 @@ async function fetchItems(
 
   const response = await fetch(
     "http://localhost:8080/item?size=" +
-      size +
-      "&page=" +
-      page +
-      "&sort=" +
-      sort +
-      "," +
-      orderBy
+    size +
+    "&page=" +
+    page +
+    "&sort=" +
+    sort +
+    "," +
+    orderBy
   );
 
   const res = await response.json();
@@ -27,6 +27,25 @@ async function fetchItems(
 
 function renderItems(array) {
   removeChild();
+
+  var searchBar = document.createElement("INPUT");
+  searchBar.setAttribute("type", "text");
+  searchBar.id = "searchText";
+  searchBar.defaultValue = "Search here";
+  document.getElementById("searchbar").appendChild(searchBar);
+
+  var searchButton = document.createElement("BUTTON");
+  searchButton.innerHTML = "Search";
+  searchButton.id = "searchButton";
+  searchButton.onclick = function () {
+    const filteredItems = array.content.filter(item =>
+      item.name.includes(searchBar.value) ||
+      item.description.includes(searchBar.value)
+    );
+    array.content = filteredItems;
+    renderItems(array);
+  };
+  document.getElementById("searchbar").appendChild(searchButton);
 
   for (let i = 0; i < array.content.length; i++) {
     const element = array.content[i];
@@ -53,9 +72,9 @@ function renderItems(array) {
 
     frame.addEventListener("click", function () {
 
-      window.location.replace("/item/" + element.id );
+      window.location.replace("/item/" + element.id);
 
-     // fetchItems(Number(page.id) - 1).then((data) => renderItems(data));
+      // fetchItems(Number(page.id) - 1).then((data) => renderItems(data));
     });
 
     let liElement = document.createElement("LI");
@@ -84,6 +103,11 @@ function renderItems(array) {
 
   function removeChild() {
     const myNode = document.getElementById("item-list");
+
+    const searchNode = document.getElementById("searchbar");
+    while (searchNode.lastElementChild) {
+      searchNode.removeChild(searchNode.lastElementChild);
+    }
     while (myNode.lastElementChild) {
       myNode.removeChild(myNode.lastElementChild);
     }

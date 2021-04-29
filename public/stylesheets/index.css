@@ -16,6 +16,20 @@ navbar{
   flex-direction: column;
 }
 
+#searchText{
+  margin: auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+#searchButton{
+  margin: auto;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+}
+
 button{
   color:black;
 }
