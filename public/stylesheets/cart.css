@@ -1,0 +1,49 @@
+body {
+  background-color: #171316;
+  background-image: url("https://www.transparenttextures.com/patterns/hexellence.png");
+  color: #ff4136;
+}
+
+img {
+  width: 200px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 60px;
+}
+
+button  {
+  background-color: black;
+  position: relative;
+  top: 100px;
+  font-size: 20px;
+  border-radius: 20%;
+}
+
+button:hover {
+  background-color: #ff4136;
+  color: black;
+}
+
+.card {
+    margin-left: 20%;
+    margin-bottom: 10%;
+
+}
+
+#checkout{
+    position: relative;
+    bottom: 500px;
+    padding: 5px;
+    margin-left: 50%;
+    font-size: 50px;
+}
+
+#cart{
+    padding-top: 0;
+}
+
+
+
+
