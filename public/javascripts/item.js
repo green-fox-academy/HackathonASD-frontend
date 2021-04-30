@@ -31,7 +31,7 @@ function createNewDiv(item) {
     image.src = item.linkToImage;
     frameDiv.appendChild(image);
     frameDiv.appendChild(cost);
-    
+
     mainDiv.appendChild(frameDiv);
 
     var quantitySelector = document.createElement("INPUT");
@@ -47,21 +47,35 @@ function createNewDiv(item) {
     div.appendChild(p);
 
     div.appendChild(quantitySelector);
-    
+
 
     addToCartButton.innerHTML = 'Add to cart';
     addToCartButton.onclick = function () {
         let cart = [];
         if (localStorage.getItem('hackathon-cart')) {
-            cart = JSON.parse(localStorage.getItem('hackathon-cart'));
+            let cartSaved = JSON.parse(localStorage.getItem('hackathon-cart'));
+            let alreadyContained = false;
+            for (const i in cartSaved) {
+                if (cartSaved[i].productId == item.id) {
+                    cartSaved[i].quantity = Number(cartSaved[i].quantity) + Number(quantitySelector.value);
+                    cart.push(cartSaved[i]);
+                    alreadyContained = true;
+                }else{cart.push(cartSaved[i]);}
+            }
+            if (!alreadyContained) {
+                cart.push({ 'productId': item.id, 'quantity': Number(quantitySelector.value) });
+                alreadyContained = false;
+            }
+            localStorage.setItem('hackathon-cart', JSON.stringify(cart));
+        } else {
+            cart.push({ 'productId': item.id, 'quantity': Number(quantitySelector.value) });
+            localStorage.setItem('hackathon-cart', JSON.stringify(cart));
         }
-        cart.push({ 'productId': item.id, 'quantity': Number(quantitySelector.value) });
-        localStorage.setItem('hackathon-cart', JSON.stringify(cart));
     };
 
     div.appendChild(addToCartButton);
     div.setAttribute("id", "div");
-   
+
     mainDiv.appendChild(div);
 
     var descElement = document.createElement("H3")

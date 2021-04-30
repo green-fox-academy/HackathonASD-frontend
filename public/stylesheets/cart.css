@@ -13,10 +13,16 @@ h1 {
   font-size: 60px;
 }
 
+#sum {
+  text-align: center;
+  font-size: 40px;
+  position: inherit;
+}
+
 button  {
   background-color: black;
   position: relative;
-  top: 100px;
+  left: 20px;
   font-size: 20px;
   border-radius: 20%;
 }
@@ -33,17 +39,11 @@ button:hover {
 }
 
 #checkout{
-    position: relative;
-    bottom: 500px;
     padding: 5px;
-    margin-left: 50%;
+    margin: 10px, 20px;
     font-size: 50px;
 }
 
 #cart{
     padding-top: 0;
 }
-
-
-
-
