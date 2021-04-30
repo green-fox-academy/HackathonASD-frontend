@@ -72,18 +72,26 @@ function renderItems(array) {
     spanTitle.appendChild(document.createTextNode(element.name));
 
     frame.appendChild(spanTitle);
-    if(element.discountRate > 0){
-        let discountDiv = document.createElement("DIV");
-        discountDiv.appendChild(document.createTextNode("Discount: " + 
-        element.discountRate + "% Original price: " + element.cost + " Dingdong"));
-        element.cost = element.cost * (100 - element.discountRate) / 100;
-        frame.appendChild(discountDiv);
+    if (element.discountRate > 0) {
+      let discountDiv = document.createElement("DIV");
+      discountDiv.appendChild(document.createTextNode("Discount: " +
+        element.discountRate + "% Original price: " + element.cost + " $"));
+      element.cost = element.cost * (100 - element.discountRate) / 100;
+      frame.appendChild(discountDiv);
     }
     spanImage.src = element.linkToImage;
     frame.appendChild(spanImage);
 
-    spanCost.appendChild(document.createTextNode(element.cost + " Dindong"));
+    spanCost.appendChild(document.createTextNode(element.cost + " $"));
     frame.appendChild(spanCost);
+
+    let wishlistButton = document.createElement("BUTTON");
+    let spanHeart = document.createElement("span");
+    spanHeart.className = "glyphicon glyphicon-heart";
+    spanHeart.appendChild(document.createTextNode(" Add to wishlist"));
+    //wishlistButton.onclick = TODO
+    wishlistButton.appendChild(spanHeart);
+    frame.appendChild(wishlistButton);
 
     frame.addEventListener("click", function () {
 
