@@ -24,7 +24,7 @@ function createNewDiv(item) {
     var cost = document.createElement("span");
     cost.setAttribute("id", "cost");
 
-    cost.appendChild(document.createTextNode(item.cost + " Dindong"));
+    cost.appendChild(document.createTextNode(item.cost + " $"));
 
 
     var image = document.createElement("IMG");
@@ -60,7 +60,7 @@ function createNewDiv(item) {
                     cartSaved[i].quantity = Number(cartSaved[i].quantity) + Number(quantitySelector.value);
                     cart.push(cartSaved[i]);
                     alreadyContained = true;
-                }else{cart.push(cartSaved[i]);}
+                } else { cart.push(cartSaved[i]); }
             }
             if (!alreadyContained) {
                 cart.push({ 'productId': item.id, 'quantity': Number(quantitySelector.value) });
